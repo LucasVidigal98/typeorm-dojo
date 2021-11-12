@@ -1,14 +1,23 @@
+import { v4 as uuidV4 } from 'uuid';
+import { Entity, Column, PrimaryColumn, CreateDateColumn } from 'typeorm';
+
+@Entity("users_dojo")
 class User {
-  id: number | undefined;
-  name: string | undefined;
-  age: number | undefined;
+  @PrimaryColumn()
+  id: string;
+
+  @Column({ nullable: true })
+  name?: string;
+
+  @Column({ nullable: true })
+  age?: number;
+
+  @CreateDateColumn()
   createdAt: Date | undefined;
 
   constructor() {
-    if(!this.id) {
-      this.id = Math.random() * 1000000;
-      this.createdAt = new Date();
-    }
+    this.id = uuidV4();
+    this.createdAt = new Date();
   }
 }
 

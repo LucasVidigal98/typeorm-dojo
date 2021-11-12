@@ -5,9 +5,9 @@ import { ListUsersUseCase } from "./listUsersUseCase";
 class ListUsersController {
 
   
-  handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response) {
     const useCase = new ListUsersUseCase();
-    const users = useCase.execute();
+    const users = await useCase.execute();
     
     res.json(users);
   }

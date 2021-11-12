@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { userRoutes } from './routes/user.routes';
+import '../src/migrations/index';
 
 const app = express();
 app.use(express.json());

@@ -1,10 +1,16 @@
+import { getRepository, Repository } from 'typeorm';
+
 import { User } from '../entities/User';
 import { IUserRepository } from './IUserRepository';
 
 class UserRepository implements IUserRepository {
 
-  private users: User[] = [];
+  private repository: Repository<User>;
   private static instance: UserRepository;
+
+  constructor() {
+    this.repository = getRepository(User);
+  }
 
   public static getInstance(): UserRepository {
     if(!this.instance) {
@@ -14,7 +20,7 @@ class UserRepository implements IUserRepository {
     return this.instance;
   }
 
-  create(name: string, age: number): User {
+  async create(name: string, age: number): Promise<User> {
     const user = new User();
 
     Object.assign(user, {
@@ -22,12 +28,13 @@ class UserRepository implements IUserRepository {
       age
     });
 
-    this.users.push(user);
+    await this.repository.save(user);
 
     return user;
   }
-  list(): User[] {
-    return this.users;
+
+  async list(): Promise <User[]> {
+    return await this.repository.find();
   }
  
 }

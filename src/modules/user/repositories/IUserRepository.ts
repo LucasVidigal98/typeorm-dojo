@@ -1,9 +1,9 @@
 import { User } from '../entities/User';
 
 interface IUserRepository {
-  create(name: string, age: number): User;
+  create(name: string, age: number): Promise<User>;
 
-  list(): User[];
+  list(): Promise<User[]>;
 }
 
 export { IUserRepository };

@@ -5,8 +5,8 @@ class ListUsersUseCase {
 
   private repository: UserRepository = UserRepository.getInstance();
 
-  execute(): User[] {
-    return this.repository.list();
+  async execute(): Promise<User[]> {
+    return await this.repository.list();
   }
 
 }
